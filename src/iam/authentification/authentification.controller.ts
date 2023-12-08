@@ -2,7 +2,9 @@ import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { AuthentificationService } from './authentification.service';
 import { SignUpDto } from './dto/sign-up.dto/sign-up.dto';
 import { SignInDto } from './dto/sign-in.dto/sign-in.dto';
+import { Public } from './decorators/authPublic.decorator';
 
+@Public()
 @Controller('authentification')
 export class AuthentificationController {
   constructor(private readonly authService: AuthentificationService) {}
