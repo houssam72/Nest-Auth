@@ -12,12 +12,15 @@ import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 import { ActiveUser } from '../iam/decorators/active-user.decorator';
 import { ActiveUserDataInterface } from '../iam/interfaces/active-user-data.interface';
+import { Role } from '../users/enum/role.enum';
+import { Roles } from '../iam/authorization/decorators/roles.decorator';
 
 @Controller('coffees')
 export class CoffeesController {
   constructor(private readonly coffeesService: CoffeesService) {}
 
   @Post()
+  @Roles(Role.Admin)
   create(@Body() createCoffeeDto: CreateCoffeeDto) {
     return this.coffeesService.create(createCoffeeDto);
   }
@@ -33,11 +36,13 @@ export class CoffeesController {
     return this.coffeesService.findOne(+id);
   }
 
+  @Roles(Role.Admin)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCoffeeDto: UpdateCoffeeDto) {
     return this.coffeesService.update(+id, updateCoffeeDto);
   }
 
+  @Roles(Role.Admin)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.coffeesService.remove(+id);
