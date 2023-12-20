@@ -72,7 +72,7 @@ export class AuthentificationService {
       this.signToken<Partial<ActiveUserDataInterface>>(
         user.id,
         this.jwtConfiguration.accessTokenTtl,
-        { email: user.email },
+        { email: user.email, role: user.role },
       ),
       this.signToken(user.id, this.jwtConfiguration.accessTokenTtl, {
         refreshTokenId,
